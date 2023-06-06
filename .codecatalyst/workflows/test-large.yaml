@@ -1,0 +1,13 @@
+Name: test-large
+SchemaVersion: "1.0"
+
+Actions:
+  Build:
+    Identifier: aws/build@v1
+    Inputs:
+      Sources:
+        - WorkflowSource
+    Configuration:
+      Steps:
+        - Run: ./mvnw install -B -V --no-transfer-progress -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -DskipTests=true -Dmaven.javadoc.skip=true
+        - Run: ./mvnw verify -Pdistro,ui,errorLogging -B -V --no-transfer-progress  -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -DskipTests=true -Dmaven.test.redirectTestOutputToFile=false
