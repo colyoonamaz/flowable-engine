@@ -1,0 +1,10 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      java: corretto17
+  build:
+    commands:
+      - ./mvnw install -B -V --no-transfer-progress -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -DskipTests=true -Dmaven.javadoc.skip=true
+      - ./mvnw verify -Pdistro,ui,errorLogging -B -V --no-transfer-progress  -Dhttp.keepAlive=false -Dmaven.wagon.http.pool=false -Dmaven.wagon.httpconnectionManager.ttlSeconds=120 -DskipTests=true -Dmaven.test.redirectTestOutputToFile=false
